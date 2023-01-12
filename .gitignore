@@ -1,6 +1,6 @@
-/.env
+/backend/.env
 /Cahier+des+charges+Groupomania.pdf
-/node_modules
-/package-lock.json
-/package.json
+/backend/node_modules
+/backend/package-lock.json
+/bakcend/package.json
 /étapesasuivre.txt

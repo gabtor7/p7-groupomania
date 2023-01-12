@@ -1,1 +1,1 @@
-// toutes les fonctionnalités pour un user donné dans ce fichier
+// toutes les fonctionnalités pour un user donné, dans ce fichier
