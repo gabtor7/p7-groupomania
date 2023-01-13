@@ -1,4 +1,12 @@
-/* routes possibles pour un utilisateur
-* - login, logout, signup (ou faut-il faire une route dédiée pour l'authentification)
-* - modification du profil (changement de nom, bio, photo, mdp, etc...)
-*/
+const express = require ('express');
+const router = express.Router();
+
+const userController = require('./controllers/user');
+
+// Modification d'un (profil) utilisateur
+router.post('/user/:id', userController.edit);
+
+// Suppression d'un utilisateur
+router.delete('/user/:id', userController.delete);
+
+module.exports = router;

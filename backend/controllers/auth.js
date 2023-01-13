@@ -5,11 +5,11 @@ const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
-    .then(hash => {
+    .then((hash) => {
         const user = new User({
             email: req.body.email,
             password: hash,
-            name: "",
+            name: req.body.email,
             bio: "",
             admin: false,
             posts: []
@@ -28,7 +28,7 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ message: "Aucun utilisateur n'est associé à cette adresse email"});
         }
         bcrypt.compare(req.body.password, user.password)
-        .then(valid => {
+        .then((valid) => {
             if(!valid){
                 return res.status(401).json({ message: "Mot de passe erroné"})
             }
