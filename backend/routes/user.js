@@ -4,9 +4,9 @@ const router = express.Router();
 const userController = require('./controllers/user');
 
 // Modification d'un (profil) utilisateur
-router.post('/user/:id', userController.edit);
+router.post('/:id', auth, userController.edit);
 
 // Suppression d'un utilisateur
-router.delete('/user/:id', userController.delete);
+router.delete('/:id', auth, userController.delete);
 
 module.exports = router;
