@@ -2,5 +2,15 @@
 /Cahier+des+charges+Groupomania.pdf
 /backend/node_modules
 /backend/package-lock.json
-/bakcend/package.json
+/backend/package.json
+
 /étapesasuivre.txt
+/setup_srv.txt
+
+/frontend/node_modules
+/frontend/package.json
+/frontend/package-lock.json
+/frontend/README.md
+/frontend/babel.config.js
+/frontend/vue.config.js
+backend/package.json
