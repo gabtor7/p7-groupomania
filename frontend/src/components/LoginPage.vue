@@ -3,9 +3,9 @@
     <div class="signup-component">
         <form class="signup-form">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email"><br /><br />
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password"><br /><br />
             <button type="button" @click="userSignUp">Sign up</button>
         </form>
     </div>
