@@ -1,11 +1,11 @@
 <template>
-    <div class="topbar navbar shadow mb-4">
+    <div class="topbar navbar shadow">
         <div class="logo ">
             <img alt="Vue logo" src="../assets/icon-left-font.png" height="60">
         </div>
         <div class="user-actions d-flex gap-5">
-            <a href="" class="single-action home">Home</a>
-            <a href="" class="single-action profile">My Profile</a>
+            <a href="" class="single-action home">Accueil</a>
+            <a href="" class="single-action profile">Mon profil</a>
             <!-- <a href="" class="login">Login</a>
             <a href="" class="signup">Signup</a> -->
         </div>
@@ -14,8 +14,7 @@
 
 <script>
 export default{
-   name: 'MainHeader',
-    
+   name: 'MainHeader'  
 }
 </script>
 
@@ -36,14 +35,7 @@ export default{
     }
 
     .single-action:hover{
-        animation: underslide 0.3s sease-in-out;
         color: #fff;
-    }
-
-    @keyframes underslide{
-
-        100%{
-            text-decoration: underline;
-        }
+        text-decoration: none;
     }
 </style>

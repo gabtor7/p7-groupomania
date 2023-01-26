@@ -1,11 +1,15 @@
 <template>
-    <router-link to="/signup">Signup</router-link>
-    <div class="signup-component">
+    <router-link to="/signup"></router-link>
+    <div class="signup-component d-inline-block">
         <form class="signup-form">
-            <label for="email">Email</label>
-            <input type="email" id="email" class="col-2" name="email"><br /><br />
-            <label for="password">Mot de passe</label>
-            <input type="password" id="password" class="col-2" name="password"><br /><br />
+            <div class="email-input text-left">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" name="email"><br /><br />
+            </div>
+            <div class="password-input text-left">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" class="form-control" name="password"><br /><br />
+            </div>
             <button type="button" class="btn btn-primary" @click="userSignUp">Sign up</button>
         </form>
     </div>
@@ -31,5 +35,9 @@ export default {
 
 
 <style>
+.signup-component{
+    max-width: 1280px;
+    text-align: center;
+}
 
 </style>
