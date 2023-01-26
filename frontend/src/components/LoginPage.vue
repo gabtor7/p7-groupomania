@@ -3,10 +3,10 @@
     <div class="signup-component">
         <form class="signup-form">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email"><br /><br />
+            <input type="email" id="email" class="col-2" name="email"><br /><br />
             <label for="password">Mot de passe</label>
-            <input type="password" id="password" name="password"><br /><br />
-            <button type="button" @click="userSignUp">Sign up</button>
+            <input type="password" id="password" class="col-2" name="password"><br /><br />
+            <button type="button" class="btn btn-primary" @click="userSignUp">Sign up</button>
         </form>
     </div>
 </template>
