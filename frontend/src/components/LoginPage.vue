@@ -1,6 +1,6 @@
 <template>
     <router-link to="/signup"></router-link>
-    <div class="signup-component d-inline-block">
+    <div class="signup-component d-inline-block mb-4">
         <form class="signup-form">
             <div class="email-input text-left">
                 <label for="email">Email</label>

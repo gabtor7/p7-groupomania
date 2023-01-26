@@ -1,6 +1,7 @@
 <template>
     <div class="main-content">
         <!-- outil de création de posts à la Facebook ? -->
+        <CreatePost />
         <!-- boucle affichage de composants UserPost (? nom à définir) -->
         <UserPost />
     </div>
@@ -8,11 +9,12 @@
 
 <script>
 import UserPost from './UserPost.vue';
+import CreatePost from './CreatePost.vue';
 
 export default{
     name: 'HomePage',
     components: {
-        UserPost
+        UserPost, CreatePost
     }
 }
 </script>
