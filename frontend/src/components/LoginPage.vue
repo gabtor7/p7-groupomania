@@ -18,7 +18,6 @@
 <script>
 export default {
     name: 'LoginPage',
-
     methods: {
         userSignUp(){
             fetch('192.168.1.49:3000/signup', {

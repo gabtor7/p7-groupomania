@@ -52,7 +52,7 @@ a:hover{
 }
 
 .btn-primary:hover{
-  border-color: var(--secondary-color);
+  border-color: var(--primary-color);
   background-color: var(--secondary-color);
   color: var(--primary-color)
 }
