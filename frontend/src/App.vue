@@ -1,24 +1,16 @@
 <template>
   <MainHeader />
-  <div class="components-container mt-2 px-3 py-5">
-    <div class="login-module">
-      <LoginPage />
-    </div>
-    <HomePage />
-    <UserProfile />
-  </div>
+  <router-view />
 </template>
 
 <script>
 import MainHeader from './components/MainHeader.vue';
-import LoginPage from './components/LoginPage.vue';
-import HomePage from './components/HomePage.vue';
-import UserProfile from './components/UserProfile.vue';
+// import LoginModule from './components/LoginModule.vue';
 
 export default {
   name: 'App',
   components: {
-    MainHeader, LoginPage, HomePage, UserProfile
+    MainHeader
   }
 }
 </script>
