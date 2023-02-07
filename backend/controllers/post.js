@@ -2,12 +2,12 @@ const Post = require('./../models/post');
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
-    const newPostObject = JSON.parse(req.body.post);
-
+    console.log(req.body);
     const newPost = new Post({
-        user: req.auth.user,
+        user: req.auth.userId,
         content: req.body.content,
-        imageUrl: `${req.protocl}://${req.gegt('host')}/images/${req.foile.filename}`
+        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        imageUrl: `image.jpg`
     });
 
     newPost.save()
@@ -17,7 +17,7 @@ exports.createPost = (req, res, next) => {
 
 exports.getAllPosts = (req, res, next) => {
     Post.find()
-    .then(sauces => res.status(200).json(sauces))
+    .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json({error}));
 };
 

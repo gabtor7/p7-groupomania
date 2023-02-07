@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import UserPost from './UserPost.vue';
+import UserPost from './Post.vue';
 
 export default{
     name:'UserProfile',

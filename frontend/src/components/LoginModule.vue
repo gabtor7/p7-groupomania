@@ -9,11 +9,11 @@
             </div>
             <div class="password-input text-left">
                 <label for="password">Mot de passe</label>
-                <input v-model="password" type="password" id="password" class="form-control" name="password"><br /><br />
-                <div class="error-msg" v-if="loginError&&(loginError!='OK')">{{ wrongCredentials }}</div><br />
+                <input v-model="password" type="password" id="password" class="form-control" name="password"><br />
+                <div class="error-msg" v-if="loginStatus">{{ wrongCredentials }}</div><br />
             </div>
-            <div class="buttons d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" @click="userSignUp">Sign up</button>
+            <div class="buttons d-flex justify-content-center flex-column">
+                <button type="button" class="btn btn-signup rounded" @click="userSignUp">Sign up</button>
                 <button type="button" class="btn btn-primary" @click="userSignIn">Sign in</button>
             </div>
         </form>
@@ -27,7 +27,7 @@ export default {
         return {
             email: '',
             password: '',
-            loginError: '',
+            loginStatus: '',
             errors: {}
         }
     },
@@ -45,21 +45,21 @@ export default {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
-                console.log(response)
                 if(response.status==201){
                     response.json().then(data => {
                         localStorage.setItem('id', data.userId)
                         localStorage.setItem('token', data.token)
                         this.$router.push('/');
-                        this.loginError = 'OK';
+                        console.log("salut" + response)
                     });
+                } else {
+                    response.json().then(data => {
+                        this.loginStatus = data.message;
+                    })
                 }
             }).catch(err => {
                 console.log(err);
             });
-            if(this.loginError !== 'OK'){
-                this.loginError = "Email ou mot de passe incorrect";
-            }
         },
         userSignUp(){
             fetch('http://192.168.1.49:3000/auth/signup', {
@@ -81,7 +81,7 @@ export default {
     },
     computed:{
         wrongCredentials(){
-            return this.loginError;
+            return this.loginStatus;
         },              
     },
     watch:{
@@ -99,12 +99,22 @@ export default {
 
 <style>
 .signup-component{
-    max-width: 1280px;
+    width: 250px;
     text-align: center;
 }
 
 .buttons{
     gap: 12px;
+}
+
+.btn-signup{
+    border: solid 1px var(--primary-color);
+    color: var(--primary-color); 
+}
+
+.btn-signup:hover{
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 .error-msg{

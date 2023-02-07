@@ -1,8 +1,6 @@
 <template>
-    <div class="components-container mt-2 px-3 py-5">
-        <div class="login-module">
-            <LoginModule />
-        </div>
+    <div class="login-module">
+        <LoginModule />
     </div>
 </template>
 
