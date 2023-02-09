@@ -29,8 +29,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Es funktioniert!" });
 });
 // on ajoutera les routes au fur et à mesure
-
-app.use('/images/', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/post', postRoutes);
 app.use('/auth', authRoutes);

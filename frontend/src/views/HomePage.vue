@@ -24,7 +24,7 @@ export default{
     },
     methods:{
         getPosts(){
-            fetch('http://192.168.1.49:3000/post', {
+            fetch('http://192.168.1.50:3000/post', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer: ' + localStorage.getItem('token')
@@ -32,7 +32,6 @@ export default{
             })
             .then(res => res.json().then(posts => {
                 this.posts = posts.reverse();
-                console.log(this.posts);
             }))
             .catch(err => console.log(err));
         }

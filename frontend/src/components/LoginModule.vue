@@ -34,7 +34,7 @@ export default {
 
     methods: {
         userSignIn(){
-            fetch('http://192.168.1.49:3000/auth/login', {
+            fetch('http://192.168.1.50:3000/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: this.email,
@@ -50,11 +50,11 @@ export default {
                         localStorage.setItem('id', data.userId)
                         localStorage.setItem('token', data.token)
                         this.$router.push('/');
-                        console.log("salut" + response)
                     });
                 } else {
                     response.json().then(data => {
                         this.loginStatus = data.message;
+                        console.log(data);
                     })
                 }
             }).catch(err => {
@@ -62,7 +62,7 @@ export default {
             });
         },
         userSignUp(){
-            fetch('http://192.168.1.49:3000/auth/signup', {
+            fetch('http://192.168.1.50:3000/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: this.email,
@@ -86,12 +86,12 @@ export default {
     },
     watch:{
         email(newValue) {
-		if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(newValue)) {
-			this.errors['email'] = ''
-		} else {
-			this.errors['email'] = 'Mauvais format d\'adresse'
-		}
-	},
+            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(newValue)) {
+                this.errors['email'] = ''
+            } else {
+                this.errors['email'] = 'Mauvais format d\'adresse'
+            }
+        },
     }
 }
 </script>

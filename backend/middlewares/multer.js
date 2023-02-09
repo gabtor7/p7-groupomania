@@ -7,23 +7,18 @@ const MIME_TYPES = {
   'image/gif': 'gif'
 };
 
-const controllerimages = 1 * 1024 * 1024;
+const controllerimages = 1 * 4096 * 4096;
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
   filename: (req, file, callback) => {
-    const name = file.originalname.split(' ').join('_').split('.')[0];
-
+    console.log(file);
+    const name = file.originalname.split(' ').join('_').split('.');
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
 });
 
-module.exports = multer({
-  storage: storage,
-  limits: {
-    fileSize: controllerimages
-  }
-}).single('attachment');
+module.exports = multer({storage: storage}).single('image');

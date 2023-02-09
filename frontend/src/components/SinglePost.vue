@@ -2,7 +2,7 @@
     <div class="full-post p-3 my-3 rounded">
         <div class="post-content row mx-0 my-3">
             <p>{{content}}</p>
-            <img src="" alt="" class="post-media">
+            <img :src="imageUrl" alt="" class="post-media">
         </div>
         <div class="post-likes d-flex align-items-center">
             <input type="button" value="+1" id="post-like" class="btn btn-secondary like-btn my-1">
@@ -21,10 +21,6 @@ export default{
         content: {
             type: String,
             required: true
-        },
-        user: {
-            type: String,
-            required: false
         },
         imageUrl: {
             type: String,

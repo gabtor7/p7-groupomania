@@ -2,12 +2,11 @@ const Post = require('./../models/post');
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
-    console.log(req.body);
+    console.log(req.file);
     const newPost = new Post({
         user: req.auth.userId,
         content: req.body.content,
-        // imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-        imageUrl: `image.jpg`
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     });
 
     newPost.save()
