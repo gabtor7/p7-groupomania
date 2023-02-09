@@ -9,16 +9,18 @@ const MIME_TYPES = {
 
 const controllerimages = 1 * 4096 * 4096;
 
-const storage = multer.diskStorage({
+let storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
   filename: (req, file, callback) => {
-    console.log(file);
-    const name = file.originalname.split(' ').join('_').split('.');
+    const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
 });
 
-module.exports = multer({storage: storage}).single('image');
+module.exports = multer({
+  storage: storage,
+  limits: controllerimages
+}).single('image');

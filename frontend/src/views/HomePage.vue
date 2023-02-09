@@ -3,7 +3,7 @@
     <CreatePost />
     <!-- boucle affichage de composants Post (? nom à définir) -->
     <div class="all-posts">
-        <SinglePost v-for="post in posts" :key="post._id" v-bind="post" />
+        <SinglePost v-for="post in posts" :key="post._id" v-bind="post" :imageUrl="post.imageUrl"/>
     </div>
 </template>
 

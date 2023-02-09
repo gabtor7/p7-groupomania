@@ -1,10 +1,10 @@
 <template>
-    <form enctype="multipart/form-data" action="/" class="create-post d-flex justify-content-between border mx-0 row">
+    <form enctype="multipart/form-data" class="create-post d-flex justify-content-between border mx-0 row">
         <div class="text-input col-9 pl-0">
-            <textarea name="Post content" id="content-input" placeholder="Créer un post" v-model="postContent"></textarea>
+            <textarea name="content" id="content-input" placeholder="Créer un post" v-model="postContent"></textarea>
         </div>
         <div class="media-upload d-flex flex-column text-center mr-3 col-2">
-            <input type="file" name="image" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
+            <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
             <label for="fileUpload" class="add-media__button d-flex flex-column"><i class="fa fa-light fa-image"></i>
                 <span v-if="!postImg">Ajouter une image</span>
                 <span v-else>
@@ -14,7 +14,7 @@
             <input type="button" v-if="postImg" class="btn btn-secondary" id="file-remove" value="x" @click="removeImage">
         </div>
         <div class="post-submission">
-            <input type="button" value="Poster" @click="registerPost" class="btn btn-primary h-100">
+            <input type="submit" value="Poster" @click="registerPost" class="btn btn-primary h-100">
         </div>
     </form>
 </template>
@@ -32,20 +32,19 @@ export default{
         }
     },
     methods:{
-        registerPost(){
+        registerPost(e){
+            e.preventDefault();
+
+            let formData = new FormData();
+            formData.append('image', this.postImg);
+            formData.append('content', this.postContent);
             fetch('http://192.168.1.50:3000/post', {
                 method: 'POST',
-                body: JSON.stringify({
-                    content: this.postContent,
-                    likes: this.likes,
-                    hasLiked: this.hasLiked
-                }),
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer: ' + localStorage.getItem('token')
-                }
-
+                },
+                body: formData                
             })
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -59,7 +58,7 @@ export default{
                 return;
             }
             this.ogfilename = files[0].name;
-            this.postImg = files[0].name;
+            this.postImg = files[0];
         },
         removeImage(){
             this.postImg = '';

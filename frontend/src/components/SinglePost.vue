@@ -1,8 +1,8 @@
 <template>
     <div class="full-post p-3 my-3 rounded">
-        <div class="post-content row mx-0 my-3">
+        <div class="post-content d-flex flex-column align-items-start row mx-0 my-3">
             <p>{{content}}</p>
-            <img :src="imageUrl" alt="" class="post-media">
+            <img :src="this.imageUrl" :alt="this.imageUrl" class="post-media">
         </div>
         <div class="post-likes d-flex align-items-center">
             <input type="button" value="+1" id="post-like" class="btn btn-secondary like-btn my-1">
@@ -48,6 +48,11 @@ export default{
 .full-post{
     box-shadow: 0px 5px 5px var(--tertiary-color);
     font-size: 18px;
+}
+
+.post-media{
+    object-fit: contain;
+    max-height: 360px;
 }
 
 .post-likes{
