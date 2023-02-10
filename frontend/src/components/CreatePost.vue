@@ -22,6 +22,7 @@
 <script>
 export default{
     name: 'CreatePost',
+    emits: ['reload-post'],
     data() {
         return {
             postContent: '',
@@ -46,7 +47,9 @@ export default{
                 },
                 body: formData                
             })
-            .then(res => console.log(res))
+            .then(() => {
+                this.$emit('reload-post');
+            })
             .catch(err => console.log(err));
             this.postContent = '';
             this.postImg = '';

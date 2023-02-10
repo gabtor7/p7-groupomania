@@ -37,10 +37,10 @@ export default{
                 }
             })
             .then((res) => {
+                this.$parent.$emit('reloadPost')
                 console.log(res.user);
             })
             .catch(err => console.log(err));
-            location.reload();
         },
         closePopup(){
             this.$emit('cancelDelete')

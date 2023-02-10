@@ -1,9 +1,9 @@
 <template>
     <!-- outil de création de posts à la Facebook ? -->
-    <CreatePost />
+    <CreatePost @reload-post="getPosts" />
     <!-- boucle affichage de composants Post (? nom à définir) -->
     <div class="all-posts">
-        <SinglePost v-for="post in posts" :key="post._id" v-bind="post"/>
+        <SinglePost v-for="post in posts" :key="post._id" v-bind="post" @reload-post="getPosts"/>
     </div>
 </template>
 

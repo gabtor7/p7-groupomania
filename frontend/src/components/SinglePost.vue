@@ -4,9 +4,10 @@
             <p>{{content}}</p>
             <img :src="this.imageUrl" :alt="this.imageUrl" class="post-media">
         </div>
-        <div class="post-likes d-flex align-items-center">
-            <input type="button" value="+1" id="post-like" class="btn btn-secondary like-btn my-1">
-            <p class="my-1">{{likes}} likes</p>
+        <div class="like-section">
+            <input type="button" :value="(hasLiked.includes(currentUser)) ? '-1' : '+1'" id="post-like" class="btn btn-secondary like-btn my-1" @click="userLikes">
+            <!-- <input v-if="!(hasLiked.includes(currentUser))" type="button" :value="+1" id="post-like" class="btn btn-secondary like-btn my-1" @click="userLikes"> -->
+            <p class="my-1">{{likes}} {{ hasLiked }}</p>    
         </div>
         <div v-if="userOwns" class="delete-post">
             <button class="delete-post__button" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
@@ -22,6 +23,8 @@ import PostDeletion from './PostDeletion.vue';
 export default{
     name: 'SinglePost',
 
+    emits: ['reloadPost'],
+
     components: {
         PostDeletion
     },
@@ -29,8 +32,8 @@ export default{
     data(){
         return {
             userOwns: false,
-            currentUser: '',
-            open: false,
+            currentUser: localStorage.getItem('id'),
+            open: false
         }
     },
     props:{
@@ -64,14 +67,29 @@ export default{
         }
 
     },
+    methods: {
+        userLikes(){
+            fetch(`http://localhost:3000/post/${this._id}/like`, {
+                method: 'PUT',
+                headers:{
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer: ' + localStorage.getItem('token')
+                }
+            })
+            .then(res => {
+                res.json();
+                this.$emit('reloadPost');
+            })
+            .catch(err => console.log(err));
+        }
+    },
     computed: {
         confirmCancelDeleteTxt(){
             return this.open ? 'Annuler' : 'Supprimer';
         }
     },
     mounted(){
-        this.userOwns = (localStorage.getItem('id') === this.user);
-        console.log(localStorage.getItem('id'));
+        this.userOwns = (this.currentUser === this.user || localStorage.getItem('admin') == true);
     }
 }
 </script>

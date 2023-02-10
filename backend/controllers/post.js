@@ -41,7 +41,7 @@ exports.editPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
     Post.findOne({_id: req.params.id})
     .then((post) => {
-        if(post.user != req.auth.userId){
+        if(post.user != req.auth.userId && !req.auth.admin){
             return res.status(401).json({error: "Not authorized"});
         } else {
             const filename = post.imageUrl.split('/images/')[1];
@@ -58,13 +58,13 @@ exports.deletePost = (req, res, next) => {
 exports.likePost = (req, res, next) => {
     Post.findOne({_id: req.params.id})
     .then(post => {
-        userAlreadyLiked = post.hasLiked.includes(req.body.user);
+        let userAlreadyLiked = post.hasLiked.includes(req.auth.userId);
         if(!userAlreadyLiked){
             Post.updateOne(
                 {_id: req.params.id},
                 {
                     $inc: {likes: 1},
-                    $push: {hasLiked: req.body.user}
+                    $push: {hasLiked: req.auth.userId}
                 }
             )
             .then(() => res.status(201).json({message: "Le post a été liké"}))
@@ -74,11 +74,11 @@ exports.likePost = (req, res, next) => {
                 {_id: req.params.id},
                 {
                     $inc: {likes: -1},
-                    $pull: {userLiked: req.body.user}
+                    $pull: {hasLiked: req.auth.userId}
                 }
             )
             .then(() => res.status(201).json({message: "Suppression du like sur le post"}))
-            .catch((error) => res.status(400).json({error}));
+            .catch((error) => {res.status(400).json({error})});
         }
     })
     .catch((error) => res.status(404).json({error}));

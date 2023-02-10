@@ -39,14 +39,20 @@ exports.login = (req, res, next) => {
             res.status(201).json({
                 userId: user._id,
                 token: jwt.sign(
-                    {userId: user._id},
+                    {userId: user._id, admin: user.admin},
                     process.env.TOKEN_KEY,
                     {expiresIn: '24h'}
-                )
+                ),
+                admin: user.admin
             });
         })
         .catch(error => res.status(500).json({ error }));
     })
     .catch(error => {
-        res.status(500).json({ error })});
+        res.status(500).json({ error })
+    });
+
+    exports.logout = (req, res, next) => {
+        // TODO supprimer token
+    }
 }

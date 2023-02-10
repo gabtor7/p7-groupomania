@@ -49,6 +49,7 @@ export default {
                     response.json().then(data => {
                         localStorage.setItem('id', data.userId)
                         localStorage.setItem('token', data.token)
+                        localStorage.setItem('admin', data.admin)
                         this.$router.push('/');
                     });
                 } else {
