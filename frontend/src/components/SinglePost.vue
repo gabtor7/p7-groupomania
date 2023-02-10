@@ -9,19 +9,28 @@
             <p class="my-1">{{likes}} likes</p>
         </div>
         <div v-if="userOwns" class="delete-post">
-            <input type="button" name="deletePost" style="display:none" @click="confirmDelete">
-            <label for="deletePost" class="delete-post__button"><i class="fa-solid fa-trash-can"></i></label>
+            <button class="delete-post__button" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
+        </div>
+        <div v-show="open" class="deletion-component">
+            <PostDeletion :postId="this._id"  @cancel-delete="open = false"></PostDeletion>
         </div>
     </div>
 </template>
 
 <script>
+import PostDeletion from './PostDeletion.vue';
 export default{
     name: 'SinglePost',
+
+    components: {
+        PostDeletion
+    },
+
     data(){
         return {
+            userOwns: false,
             currentUser: '',
-            postUser: ''
+            open: false,
         }
     },
     props:{
@@ -44,15 +53,26 @@ export default{
             default(){
                 return []
             }
+        },
+        user:{
+            type: String,
+            required: true
+        },
+        _id: {
+            type: String,
+            required: true
         }
 
     },
-    computed:{
-        userOwns(){
-            return this.currentUser === this.postUser;
+    computed: {
+        confirmCancelDeleteTxt(){
+            return this.open ? 'Annuler' : 'Supprimer';
         }
+    },
+    mounted(){
+        this.userOwns = (localStorage.getItem('id') === this.user);
+        console.log(localStorage.getItem('id'));
     }
-    
 }
 </script>
 
@@ -61,6 +81,7 @@ export default{
 .full-post{
     box-shadow: 0px 5px 5px var(--tertiary-color);
     font-size: 18px;
+    position: relative;
 }
 
 .post-media{
@@ -76,5 +97,36 @@ export default{
 
 .like-btn{
     padding: 3px 8px;
+}
+
+.delete-post{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.delete-post:hover{
+    cursor: pointer;
+}
+
+.delete-post__button{
+    border: 0;
+    background-color: transparent;
+    font-size: 12px;
+    color: var(--primary-color);
+}
+
+.delete-post__button:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.deletion-component{
+    position: absolute;
+    top: 36px;
+    margin-top: 10px;
+    right: 10px;
+    padding: 6px;
+    border: solid 1px #aaaaaa
 }
 </style>

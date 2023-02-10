@@ -45,13 +45,11 @@ exports.deletePost = (req, res, next) => {
             return res.status(401).json({error: "Not authorized"});
         } else {
             const filename = post.imageUrl.split('/images/')[1];
-            if(filename){
-                fs.unlink(`images/${filename}`, () => {
-                    Post.deleteOne({_id: req.params.id})
-                    .then(() => res.status(201).json({message: "Le post a été supprimé"}))
-                    .catch((error) => res.status(400).json({error}))
-                });
-            }
+            fs.unlink(`images/${filename}`, () => {
+                Post.deleteOne({_id: req.params.id})
+                .then(() => res.status(201).json({message: "Le post a été supprimé"}))
+                .catch((error) => res.status(400).json({error}))
+            }); 
         }
     })
     .catch((error) => res.status(500).json({error}));
