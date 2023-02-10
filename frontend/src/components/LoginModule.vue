@@ -34,7 +34,7 @@ export default {
 
     methods: {
         userSignIn(){
-            fetch('http://192.168.1.50:3000/auth/login', {
+            fetch('http://localhost:3000/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: this.email,
@@ -62,7 +62,7 @@ export default {
             });
         },
         userSignUp(){
-            fetch('http://192.168.1.50:3000/auth/signup', {
+            fetch('http://localhost:3000/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify({
                     email: this.email,

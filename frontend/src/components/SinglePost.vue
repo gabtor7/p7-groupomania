@@ -8,6 +8,10 @@
             <input type="button" value="+1" id="post-like" class="btn btn-secondary like-btn my-1">
             <p class="my-1">{{likes}} likes</p>
         </div>
+        <div v-if="userOwns" class="delete-post">
+            <input type="button" name="deletePost" style="display:none" @click="confirmDelete">
+            <label for="deletePost" class="delete-post__button"><i class="fa-solid fa-trash-can"></i></label>
+        </div>
     </div>
 </template>
 
@@ -15,7 +19,10 @@
 export default{
     name: 'SinglePost',
     data(){
-        return {}
+        return {
+            currentUser: '',
+            postUser: ''
+        }
     },
     props:{
         content: {
@@ -40,6 +47,12 @@ export default{
         }
 
     },
+    computed:{
+        userOwns(){
+            return this.currentUser === this.postUser;
+        }
+    }
+    
 }
 </script>
 

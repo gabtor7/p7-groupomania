@@ -3,7 +3,7 @@
     <CreatePost />
     <!-- boucle affichage de composants Post (? nom à définir) -->
     <div class="all-posts">
-        <SinglePost v-for="post in posts" :key="post._id" v-bind="post" :imageUrl="post.imageUrl"/>
+        <SinglePost v-for="post in posts" :key="post._id" v-bind="post"/>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default{
     },
     methods:{
         getPosts(){
-            fetch('http://192.168.1.50:3000/post', {
+            fetch('http://localhost:3000/post', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer: ' + localStorage.getItem('token')

@@ -34,11 +34,11 @@ export default{
     methods:{
         registerPost(e){
             e.preventDefault();
-
             let formData = new FormData();
             formData.append('image', this.postImg);
             formData.append('content', this.postContent);
-            fetch('http://192.168.1.50:3000/post', {
+
+            fetch('http://localhost:3000/post', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
