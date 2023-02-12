@@ -4,8 +4,8 @@
             <img alt="Vue logo" src="../assets/icon-left-font.png" height="60">
         </div>
         <div class="user-actions d-flex gap-5">
-            <a href="" class="single-action home">Accueil</a>
-            <a href="" class="single-action profile">Mon profil</a>
+            <a href="/" class="single-action home">Accueil</a>
+            <a v-if="isUserLogged" href="" class="single-action action-logout" @click="logoutUser">Se déconnecter</a>
             <!-- <a href="" class="login">Login</a>
             <a href="" class="signup">Signup</a> -->
         </div>
@@ -14,7 +14,26 @@
 
 <script>
 export default{
-   name: 'MainHeader'  
+   name: 'MainHeader',
+   data(){
+        return{
+            isUserLogged: false
+        }
+   },
+   methods:{
+        logoutUser(){
+            localStorage.clear();
+            this.$router.push('/login')
+        }
+   },
+   mounted() {
+        if(localStorage.getItem('id')){
+            console.log('salutsalute')
+            this.isUserLogged = true;
+        } else {
+            this.isUserLogged = false;
+        }
+   }
 }
 </script>
 
