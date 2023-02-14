@@ -4,13 +4,14 @@
             <p>{{content}}</p>
             <img :src="this.imageUrl" :alt="this.imageUrl" class="post-media">
         </div>
-        <div class="like-section">
-            <input type="button" :value="(hasLiked.includes(currentUser)) ? '-1' : '+1'" id="post-like" class="btn btn-secondary like-btn my-1" @click="userLikes">
+        <div class="like-section d-flex ">
+            <input type="button" :value="(hasLiked.includes(currentUser)) ? '-1' : '+1'" id="post-like" class="btn btn-secondary like-btn my-1 mr-2" @click="userLikes">
             <!-- <input v-if="!(hasLiked.includes(currentUser))" type="button" :value="+1" id="post-like" class="btn btn-secondary like-btn my-1" @click="userLikes"> -->
-            <p class="my-1">{{likes}} {{ hasLiked }}</p>    
+            <p class="my-1">{{likes}} likes</p>    
         </div>
-        <div v-if="userOwns" class="delete-post">
-            <button class="delete-post__button" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
+        <div v-if="userOwns" class="post-actions">
+            <button class="post-actions__edit" title="Modifier ce post" @click="editPost">Modifier</button>
+            <button class="post-actions__delete" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
         </div>
         <div v-show="open" class="deletion-component">
             <PostDeletion :postId="this._id"  @cancel-delete="open = false"></PostDeletion>
@@ -81,6 +82,9 @@ export default{
                 this.$emit('reloadPost');
             })
             .catch(err => console.log(err));
+        },
+        editPost(){
+            this.$router.push(this._id);
         }
     },
     computed: {
@@ -117,24 +121,29 @@ export default{
     padding: 3px 8px;
 }
 
-.delete-post{
+.post-actions{
     position: absolute;
     top: 10px;
     right: 10px;
 }
 
-.delete-post:hover{
+.post-actions:hover{
     cursor: pointer;
 }
 
-.delete-post__button{
+.post-actions__delete, .post-actions__edit{
     border: 0;
     background-color: transparent;
     font-size: 12px;
     color: var(--primary-color);
 }
 
-.delete-post__button:hover{
+.post-actions__edit{
+    
+    color: #1133aa
+}
+
+.post-actions__delete:hover, .post-actions__edit:hover{
     cursor: pointer;
     text-decoration: underline;
 }
