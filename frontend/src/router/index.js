@@ -6,7 +6,8 @@ import EditPage from './../views/EditPage.vue'
 const routes = [
     {path: '/', component: HomePage}, 
     {path: '/login', component: LoginPage}, 
-    {path: '/post', component: HomePage, children: [{path: ':id', component: EditPage}]}
+    {path: '/post', component: HomePage},
+    {path: '/post/:id', component: EditPage}
 ]
 const router = createRouter({history: createWebHistory(process.env.BASE_URL), routes})
 

@@ -84,7 +84,7 @@ export default{
             .catch(err => console.log(err));
         },
         editPost(){
-            this.$router.push(this._id);
+            this.$router.push('/post/' + this._id);
         }
     },
     computed: {
