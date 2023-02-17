@@ -11,6 +11,9 @@ router.post('/', auth, multer, postCtrl.createPost);
 // récupérer
 router.get('/', auth, postCtrl.getAllPosts);
 
+// récupérer unique
+router.get('/:id', auth, postCtrl.getOnePost)
+
 // modifier
 router.put('/:id', auth, multer, postCtrl.editPost);
 

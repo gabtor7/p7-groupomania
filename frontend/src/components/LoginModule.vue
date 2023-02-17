@@ -21,7 +21,7 @@
 </template>
 
 <script>
-export default {
+export default{
     name: 'LoginModule',
     data() {
         return {

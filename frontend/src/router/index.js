@@ -1,13 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomePage from './../views/HomePage.vue'
 import LoginPage from './../views/LoginPage.vue'
-import EditPage from './../views/EditPage.vue'
+import EditPost from './../views/EditPost.vue'
 
 const routes = [
     {path: '/', component: HomePage}, 
-    {path: '/login', component: LoginPage}, 
-    {path: '/post', component: HomePage},
-    {path: '/post/:id', component: EditPage}
+    {path: '/login', component: LoginPage},
+    {path: '/post/:id', component: EditPost}
 ]
 const router = createRouter({history: createWebHistory(), routes})
 

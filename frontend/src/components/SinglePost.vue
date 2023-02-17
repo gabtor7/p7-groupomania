@@ -109,6 +109,8 @@ export default{
 .post-media{
     object-fit: contain;
     max-height: 360px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 3px
 }
 
 .post-likes{
@@ -138,8 +140,7 @@ export default{
     color: var(--primary-color);
 }
 
-.post-actions__edit{
-    
+.post-actions__edit{  
     color: #1133aa
 }
 
