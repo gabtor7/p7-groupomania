@@ -6,8 +6,6 @@
         <div class="user-actions d-flex gap-5">
             <a href="/" class="single-action home">Accueil</a>
             <a v-if="isUserLogged" href="" class="single-action action-logout" @click="logoutUser">Se déconnecter</a>
-            <!-- <a href="" class="login">Login</a>
-            <a href="" class="signup">Signup</a> -->
         </div>
     </div>
 </template>
@@ -17,21 +15,22 @@ export default{
    name: 'MainHeader',
    data(){
         return{
-            isUserLogged: false
+            //isUserLogged: false
         }
    },
    methods:{
         logoutUser(){
             localStorage.clear();
             this.$router.push('/login')
-        }
+        },
+        
    },
-   mounted() {
-        if(localStorage.getItem('id')){
-            console.log('salutsalute')
-            this.isUserLogged = true;
-        } else {
-            this.isUserLogged = false;
+   watch: {
+        isUserLogged: {
+            handler(){
+                return (localStorage.getItem('id') != null);
+            },
+            immediate: true
         }
    }
 }

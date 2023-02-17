@@ -1,5 +1,5 @@
 <template>
-  <MainHeader />
+  <MainHeader :loginStatus="loginStatus" />
   <div class="components-container mt-2 px-3 py-5">
     <router-view />
   </div>
@@ -14,6 +14,11 @@ export default {
   name: 'App',
   components: {
     MainHeader
+  },
+  data(){
+    return{
+
+    }
   }
 }
 </script>
