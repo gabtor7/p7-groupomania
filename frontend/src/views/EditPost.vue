@@ -1,30 +1,36 @@
 <template>
     <h2>Modifier le post</h2>
     <div class="full-post p-3 my-3 rounded">
-        <form enctype="multipart/form-data" class="create-post d-flex justify-content-between border mx-0 row">
-            <div class="text-input col-9 pl-0">
-                <textarea name="content" id="content-input" placeholder="Créer un post">{{ currentPost.content }}</textarea>
-            </div>
-            <div class="media-upload d-flex flex-column text-center mr-3 col-2">
-                <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
-                <label for="fileUpload" class="add-media__button d-flex flex-column"><i class="fa fa-light fa-image"></i>
-                    <span v-if="!currentPost.imageUrl">Ajouter une image</span>
-                    <span v-else>
-                        {{ currentPost.imageUrl }}
-                    </span>
-                </label>
-                <input type="button" v-if="postImg" class="btn btn-secondary" id="file-remove" value="x" @click="removeImage">
-            </div>
-            <div class="post-submission">
-                <input type="submit" value="Poster" @click="registerPost" class="btn btn-primary h-100">
+        <form enctype="multipart/form-data" id="editPost" class="mx-0 mb-2">
+            <div class="row px-3 w-100">
+                <div class="text-input col pl-0">
+                    <textarea aria-label="Contenu du post" name="content" id="content-input" placeholder="Créer un post" v-model="newContent"></textarea>
+                </div>
+                <div class="media-upload col-2 d-flex flex-column text-center px-3">
+                    <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
+                    <label for="fileUpload" class="add-media__button d-flex flex-column"><i class="fa fa-light fa-image"></i>
+                        <span v-if="!currentPost.imageUrl">Ajouter une image</span>
+                        <span v-else>
+                            {{ currentPost.imageUrl }}
+                        </span>
+                    </label>
+                    <input type="button" v-if="newMediaUrl" class="btn btn-secondary" id="file-remove" value="x" @click="removeImage">
+                </div>
             </div>
         </form>
-        <img :src="currentPost.imageUrl" :alt="currentPost.imageUrl" class="post-media">
-        <button v-if="currentPost.imageUrl" class="post-actions__delete" title="Supprimer l'image" @click="removeImage">Supprimer l'image</button>
-        <button class="post-actions__delete delete-btn" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
-        <div v-show="open" class="deletion-component">
-            <PostDeletion :postId="currentPost._id"  @cancel-delete="open = false"></PostDeletion>
+        <div v-if="!newMediaUrl" class="edit-media d-flex flex-direction-column align-items-end">
+            <img :src="currentPost.imageUrl" :alt="currentPost.imageUrl" class="post-media">
+            <button v-if="currentPost.imageUrl" class="post-actions__delete" title="Supprimer l'image" @click="removeCurrentImage">Supprimer l'image</button>
         </div>
+        <div class="post-update-actions d-flex justify-content-end">
+            <button class="post-actions__delete delete-btn" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
+            <div class="post-update d-inline-block">
+                <input type="submit" form="editPost" value="Mettre à jour" @click="updatePost" class="btn btn-primary w-100">
+            </div>
+            <div v-show="open" class="delete-component">
+                <PostDeletion :postId="postId"  @cancel-delete="open = false"></PostDeletion>
+            </div>
+        </div>    
     </div>
 </template>
 
@@ -38,10 +44,12 @@ export default{
     },
     data(){
         return {
-            userOwns: false,
             postId: '',
-            currentPost: {},
-            open: false
+            currentPost: '',
+            open: false,
+            newMediaUrl: false,
+            newMediaContent: '',
+            newContent: ''
         }
     },
     methods: {
@@ -56,34 +64,75 @@ export default{
             .then((res) => {
                 this.currentPost = res.json().then(post => {
                     this.currentPost = post;
-                    console.log(this.currentPost._id);
+                    this.newContent = this.currentPost.content;
                 })
             })
             .catch(err => console.log(err));
         },
-        removeImage(){
+        removeCurrentImage(){
             this.currentPost.imageUrl='';
+        },
+        removeImage(){
+            this.newMediaContent='';
+            this.newMediaUrl = false;
+        },
+        manageImage(e){
+            let files = e.target.files || e.dataTransfer.files;
+            if(!files.length){
+                return;
+            }
+            this.newMediaContent = files[0];
+            this.newMediaUrl = true;
+        },
+        updatePost(e){
+            e.preventDefault();
+            let formData = new FormData();
+            if(this.newMediaContent != ''){
+                formData.append('image', this.newMediaContent);
+            }
+            formData.append('content', this.newContent);
+
+            fetch(`http://localhost:3000/post/${this.postId}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer: ' + localStorage.getItem('token')
+                },
+                body: formData 
+
+            })
+            .then(() => {
+                this.$router.push('/');
+            })
+            .catch(err => console.log(err));
+            this.newMediaContent = '';
+            this.newMediaUrl = false;
         }
     },
     computed: {
         confirmCancelDeleteTxt(){
-            return this.open ? 'Annuler' : 'Supprimer';
+            return this.open ? 'Annuler' : 'Supprimer le post';
         }
     },
     created(){
         this.postId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-    },
-    mounted(){
         this.getSinglePost();
+        
     }
 }
 </script>
 
-<style>
-.delete-btn{
+<style scoped>
+.post-update-actions{
+}
+
+.delete-component{
     position: absolute;
-    top: 10px;
+    bottom: 46px;
+    margin-bottom: 10px;
     right: 10px;
+    padding: 6px;
+    border: solid 1px #aaaaaa
 }
 
 .post-submission input{

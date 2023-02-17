@@ -41,6 +41,7 @@ export default{
                 console.log(res.user);
             })
             .catch(err => console.log(err));
+            this.$router.push('/')
         },
         closePopup(){
             this.$emit('cancelDelete')

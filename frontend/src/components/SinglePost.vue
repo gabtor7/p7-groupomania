@@ -23,7 +23,6 @@
 import PostDeletion from './PostDeletion.vue';
 export default{
     name: 'SinglePost',
-
     emits: ['reloadPost'],
 
     components: {
@@ -93,7 +92,8 @@ export default{
         }
     },
     mounted(){
-        this.userOwns = (this.currentUser === this.user || localStorage.getItem('admin') == true);
+        this.userOwns = (this.currentUser === this.user || localStorage.getItem('admin') == 'true');
+        console.log(localStorage.getItem('admin'))
     }
 }
 </script>

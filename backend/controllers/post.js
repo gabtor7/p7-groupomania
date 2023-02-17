@@ -1,4 +1,5 @@
 const Post = require('./../models/post');
+
 const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
@@ -32,18 +33,27 @@ exports.getOnePost = (req, res, next) => {
 }
 
 exports.editPost = (req, res, next) => {
-    const postObject = {...JSON.parse(req.body.post)};
+    const postObject = {
+        content: req.body.content
+    };
+    if(req.file){
+        postObject.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    }
 
     Post.findOne({_id: req.params.id})
     .then((post) => {
-        if(post.user != req.auth.userId){
+        if(post.user != req.auth.userId && !req.auth.admin){
             return res.status(401).json({error: "Action non autorisée"});
         } else {
-            udpateQuery = {_id: req.params.id};
+            updateQuery = { _id: req.params.id };
             updatePost = {...postObject, _id: req.params.id};
-            Post.updateOne(udpateQuery, updatePost)
-            .then(() => res.json(201).json({message: "Post modifié avec succès"}))
-            .catch((error) => res.status(400).json({error}));
+            Post.updateOne(updateQuery, updatePost)
+            .then(() => {
+                return res.status(201).json({message: "Post modifié avec succès"})
+            })
+            .catch((error) => {
+                return res.status(400).json({error})
+            });
         }
     })
     .catch((error) => res.status(400).json({error}));

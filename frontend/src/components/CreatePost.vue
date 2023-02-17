@@ -87,6 +87,12 @@ export default{
     font-size: 32px;
 }
 
+.add-media__button span{
+    word-break: break-all;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .add-media__button:hover{
     cursor: pointer;
     color: var(--primary-color);

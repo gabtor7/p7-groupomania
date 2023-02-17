@@ -36,6 +36,7 @@ exports.login = (req, res, next) => {
             if(!valid){
                 return res.status(401).json({ message: "Mot de passe erroné"});
             }
+            console.log(user)
             res.status(201).json({
                 userId: user._id,
                 token: jwt.sign(
