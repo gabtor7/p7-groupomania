@@ -1,24 +1,17 @@
 <template>
-  <MainHeader :loginStatus="loginStatus" />
+  <MainHeader />
   <div class="components-container mt-2 px-3 py-5">
-    <router-view />
+    <RouterView />
   </div>
 </template>
 
 <script>
 import MainHeader from './components/MainHeader.vue';
-// import LoginModule from './components/LoginModule.vue';
-//import HomePage from './views/HomePage.vue';
 
 export default {
   name: 'App',
   components: {
     MainHeader
-  },
-  data(){
-    return{
-
-    }
   }
 }
 </script>

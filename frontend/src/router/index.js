@@ -9,6 +9,14 @@ const routes = [
     {path: '/post', component: HomePage},
     {path: '/post/:id', component: EditPage}
 ]
-const router = createRouter({history: createWebHistory(process.env.BASE_URL), routes})
+const router = createRouter({history: createWebHistory(), routes})
+
+router.beforeEach((to, from, next) => {
+    if(to.meta.requireAuth && !localStorage.getItem('id')){
+        next('/login')
+    } else {
+        next();
+    }
+})
 
 export default router;

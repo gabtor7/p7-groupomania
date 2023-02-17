@@ -13,8 +13,12 @@
 /frontend/README.md
 /frontend/babel.config.js
 /frontend/vue.config.js
+/frontend/vite.config.js
+/frontend/src/assets
+/frontend/.vscode
 backend/package.json
 backend/package.json
 
 Groupomania+Logos
 backend/images/*
+/frontend.old
