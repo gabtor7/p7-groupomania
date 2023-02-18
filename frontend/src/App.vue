@@ -12,6 +12,9 @@ export default {
   name: 'App',
   components: {
     MainHeader
+  },
+  created() {
+    !localStorage.getItem('id') ? this.$router.push('/login') : ''
   }
 }
 </script>
