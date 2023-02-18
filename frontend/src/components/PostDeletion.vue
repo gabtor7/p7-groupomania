@@ -4,7 +4,7 @@
             Souhaitez-vous vraiment supprimer ce post ?
         </div>
         <div class="confirmation-window_buttons">
-            <input type="button" class="btn btn-primary" value="Oui" @click="deletePost">
+            <input type="button" class="btn btn-primary confirm-btn" value="Oui" @click="deletePost">
             <input type="button" class="btn" value="Non" @click="closePopup">
         </div>
     </div>
@@ -53,6 +53,12 @@ export default{
 <style>
 .confirmation-window{
     background-color: #ffffff;
+    z-index: 1
+}
+
+.confirm-btn{
+    font-size: 16px;
+    font-weight: bold;
 }
 
 .close-popup{

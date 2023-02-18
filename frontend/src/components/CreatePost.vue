@@ -1,7 +1,7 @@
 <template>
     <form enctype="multipart/form-data" class="create-post d-flex justify-content-between border mx-0 row">
         <div class="text-input col-9 pl-0">
-            <textarea name="content" id="content-input" placeholder="Créer un post" v-model="postContent"></textarea>
+            <textarea aria-label="Champ de saisie du contenu" name="content" id="content-input" placeholder="Créer un post" v-model="postContent"></textarea>
         </div>
         <div class="media-upload d-flex flex-column text-center mr-3 col-2">
             <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
@@ -14,7 +14,7 @@
             <input type="button" v-if="postImg" class="btn btn-secondary" id="file-remove" value="x" @click="removeImage">
         </div>
         <div class="post-submission">
-            <input type="submit" value="Poster" @click="registerPost" class="btn btn-primary h-100">
+            <input type="submit" value="Poster" @click="registerPost" class="btn btn-primary h-100 btn-bold">
         </div>
     </form>
 </template>
@@ -106,5 +106,10 @@ export default{
     right: 20px;
     font-size: 12px;
     padding: 2px 8px;
+}
+
+.btn-bold{
+    font-size: 18px;
+    font-weight: 500;
 }
 </style>

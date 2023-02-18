@@ -39,15 +39,16 @@ a:hover{
 
 .btn-primary{
   border-color: var(--primary-color);
-  background-color: var(--primary-color);
+  background: linear-gradient(var(--primary-color), var(--primary-color));
   padding: 5px 10px;
   border-radius: 6px
 }
 
 .btn-primary:hover{
   border-color: var(--primary-color);
-  background-color: var(--secondary-color);
-  color: var(--primary-color)
+  background: linear-gradient(var(--secondary-color), var(--secondary-color));
+  color: var(--primary-color);
+  transition: .05s ease-in
 }
 
 #app {
@@ -69,5 +70,9 @@ a:hover{
 
 .login-module{
   text-align: center;
+}
+
+textarea{
+  white-space: pre-wrap;
 }
 </style>

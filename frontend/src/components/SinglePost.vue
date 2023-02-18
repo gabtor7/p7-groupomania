@@ -10,8 +10,13 @@
             <p class="my-1">{{likes}} likes</p>    
         </div>
         <div v-if="userOwns" class="post-actions">
-            <button class="post-actions__edit" title="Modifier ce post" @click="editPost">Modifier</button>
-            <button class="post-actions__delete" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
+            <button class="post-action post-actions__edit" title="Modifier ce post" @click="editPost">
+                <i class="fas fa-pen-to-square"></i>
+            </button>
+            <button class="post-action post-actions__delete" title="Supprimer ce post" @click="open = !open">
+                <i v-if="!open" class="fa-solid fa-trash"></i>
+                <span v-else>{{ confirmCancelDeleteTxt }}</span>
+            </button>
         </div>
         <div v-show="open" class="deletion-component">
             <PostDeletion :postId="this._id"  @cancel-delete="open = false"></PostDeletion>
@@ -127,6 +132,10 @@ export default{
     position: absolute;
     top: 10px;
     right: 10px;
+}
+
+.post-action i{
+    font-size: 18px;
 }
 
 .post-actions:hover{

@@ -14,7 +14,7 @@
             </div>
             <div class="buttons d-flex justify-content-center flex-column">
                 <button type="button" class="btn btn-signup rounded" @click="userSignUp">Sign up</button>
-                <button type="button" class="btn btn-primary" @click="userSignIn">Sign in</button>
+                <button type="button" class="btn btn-signin btn-primary" @click="userSignIn">Sign in</button>
             </div>
         </form>
     </div>
@@ -31,7 +31,6 @@ export default{
             errors: {}
         }
     },
-
     methods: {
         userSignIn(){
             fetch('http://localhost:3000/auth/login', {
@@ -108,14 +107,22 @@ export default{
     gap: 12px;
 }
 
+.buttons .btn{
+    font-size: 18px
+}
+
 .btn-signup{
-    border: solid 1px var(--primary-color);
-    color: var(--primary-color); 
+    border: solid 1px #000;
+    color: #000; 
 }
 
 .btn-signup:hover{
     background-color: var(--primary-color);
     color: #fff;
+}
+
+.btn-signin{
+    font-weight: bold;
 }
 
 .error-msg{

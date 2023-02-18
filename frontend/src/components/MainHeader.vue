@@ -3,10 +3,10 @@
         <div class="logo ">
             <img alt="Vue logo" src="../assets/icon-left-font.png" height="60">
         </div>
-        <div class="user-actions d-flex gap-5">
+        <nav class="user-actions d-flex gap-5">
             <a href="/" class="single-action home">Accueil</a>
             <a href="" class="single-action action-logout" @click="logoutUser">Se déconnecter</a>
-        </div>
+        </nav>
     </div>
 </template>
 

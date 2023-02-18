@@ -9,7 +9,7 @@
                 <div class="media-upload col-2 d-flex flex-column text-center px-3">
                     <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
                     <label for="fileUpload" class="add-media__button d-flex flex-column"><i class="fa fa-light fa-image"></i>
-                        <span v-if="!currentPost.imageUrl">Ajouter une image</span>
+                        <span v-if="!newMediaUrl">Ajouter une image</span>
                         <span v-else>
                             {{ currentPost.imageUrl }}
                         </span>
@@ -20,10 +20,15 @@
         </form>
         <div v-if="!newMediaUrl" class="edit-media d-flex flex-direction-column align-items-end">
             <img :src="currentPost.imageUrl" :alt="currentPost.imageUrl" class="post-media">
-            <button v-if="currentPost.imageUrl" class="post-actions__delete" title="Supprimer l'image" @click="removeCurrentImage">Supprimer l'image</button>
+            <button v-if="currentPost.imageUrl" class="post-actions__delete" title="Supprimer l'image" @click="removeCurrentImage">
+                Supprimer l'image
+            </button>
         </div>
         <div class="post-update-actions d-flex justify-content-end">
-            <button class="post-actions__delete delete-btn" title="Supprimer ce post" @click="open = !open">{{ confirmCancelDeleteTxt }}</button>
+            <button class="post-actions__delete delete-btn" title="Supprimer ce post" @click="open = !open">
+                <i v-if="!open" class="fa-solid fa-trash mr-2"></i>
+                <span v-else>{{ confirmCancelDeleteTxt }}</span>
+            </button>
             <div class="post-update d-inline-block">
                 <input type="submit" form="editPost" value="Mettre à jour" @click="updatePost" class="btn btn-primary w-100">
             </div>
@@ -123,7 +128,8 @@ export default{
 </script>
 
 <style scoped>
-.post-update-actions{
+.delete-btn i{
+    font-size: 18px;
 }
 
 .delete-component{
@@ -132,10 +138,15 @@ export default{
     margin-bottom: 10px;
     right: 10px;
     padding: 6px;
-    border: solid 1px #aaaaaa
+    border: solid 1px #aaaaaa;
+    background-color: #fff;
 }
 
 .post-submission input{
     word-wrap: wrap-word;
+}
+
+.post-update input{
+    font-size: 18px
 }
 </style>
