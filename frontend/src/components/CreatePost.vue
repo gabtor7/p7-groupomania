@@ -76,6 +76,7 @@ export default{
 .text-input textarea{
     width: 100%;
     height: 100%;
+    white-space: pre;
 }
 
 .media-upload{
@@ -91,6 +92,7 @@ export default{
     word-break: break-all;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: pre;
 }
 
 .add-media__button:hover{
