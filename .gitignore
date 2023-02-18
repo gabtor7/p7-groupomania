@@ -21,7 +21,7 @@ backend/package.json
 backend/package.json
 
 Groupomania+Logos
-backend/images/*
+#backend/images/*
 /frontend.old
 
 .gitignore
