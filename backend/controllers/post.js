@@ -33,18 +33,27 @@ exports.getOnePost = (req, res, next) => {
 }
 
 exports.editPost = (req, res, next) => {
+    let deletePreviousImg = false;
+    console.log(req.body);
     const postObject = {
         content: req.body.content
     };
     if(req.file){
         postObject.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-    }
+        
+    } 
 
     Post.findOne({_id: req.params.id})
     .then((post) => {
         if(post.user != req.auth.userId && !req.auth.admin){
             return res.status(401).json({error: "Action non autorisée"});
         } else {
+            if(req.body.image === ''){
+                console.log(post.imageUrl)
+                const filename = post.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => console.log('image supprimée'));
+                postObject.imageUrl = '';
+            }
             updateQuery = { _id: req.params.id };
             updatePost = {...postObject, _id: req.params.id};
             Post.updateOne(updateQuery, updatePost)

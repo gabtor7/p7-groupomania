@@ -54,7 +54,8 @@ export default{
             open: false,
             newMediaUrl: false,
             newMediaContent: '',
-            newContent: ''
+            newContent: '',
+            removePrevImg: false
         }
     },
     methods: {
@@ -76,6 +77,7 @@ export default{
         },
         removeCurrentImage(){
             this.currentPost.imageUrl='';
+            this.removePrevImg = true;
         },
         removeImage(){
             this.newMediaContent='';
@@ -92,6 +94,10 @@ export default{
         updatePost(e){
             e.preventDefault();
             let formData = new FormData();
+            if(this.removePrevImg && (!this.newMediaContent)){
+                formData.append('image', this.newMediaContent);
+                this.removePrevImg = true;
+            }
             if(this.newMediaContent != ''){
                 formData.append('image', this.newMediaContent);
             }
