@@ -1,6 +1,6 @@
 <template>
   <MainHeader />
-  <div class="components-container mt-2 px-3 py-5">
+  <div class="components-container px-3 py-5">
     <RouterView />
   </div>
 </template>

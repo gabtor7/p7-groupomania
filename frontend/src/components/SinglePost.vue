@@ -114,7 +114,8 @@ export default{
     object-fit: contain;
     max-height: 360px;
     border-radius: 12px;
-    box-shadow: 2px 2px 3px
+    box-shadow: 2px 2px 3px;
+    max-width: 100%;
 }
 
 .post-likes{

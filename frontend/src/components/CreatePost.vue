@@ -1,11 +1,11 @@
 <template>
-    <form enctype="multipart/form-data" class="create-post d-flex justify-content-between border mx-0 row">
-        <div class="text-input col-9 pl-0">
+    <form enctype="multipart/form-data" class="create-post d-md-flex d-sm-block justify-content-between border mx-0 row-md">
+        <div class="text-input col-md-8 pl-0 mb-1">
             <textarea aria-label="Champ de saisie du contenu" name="content" id="content-input" placeholder="Créer un post" v-model="postContent"></textarea>
         </div>
-        <div class="media-upload d-flex flex-column text-center mr-3 col-2">
+        <div class="media-upload d-md-flex flex-column d-sm-inline-block mr-3 col-sm-2">
             <input type="file" ref="image" name="imageUpload" id="fileUpload" class="add-media" style="display:none" @change="manageImage">
-            <label for="fileUpload" class="add-media__button d-flex flex-column"><i class="fa fa-light fa-image"></i>
+            <label for="fileUpload" class="add-media__button d-flex flex-column text-center"><i class="fa fa-light fa-image"></i>
                 <span v-if="!postImg">Ajouter une image</span>
                 <span v-else>
                     {{ ogfilename }}
@@ -13,7 +13,7 @@
             </label>
             <input type="button" v-if="postImg" class="btn btn-secondary" id="file-remove" value="x" @click="removeImage">
         </div>
-        <div class="post-submission">
+        <div class="post-submission d-sm-inline-block">
             <input type="submit" value="Poster" @click="registerPost" class="btn btn-primary h-100 btn-bold">
         </div>
     </form>
@@ -114,4 +114,18 @@ export default{
     font-size: 18px;
     font-weight: 500;
 }
+
+@media (max-width: 768px){
+    .create-post{
+        text-align: right;
+    }
+    
+    .post-submission, .media-upload{
+        margin-right: 1rem;
+        width: max-content;
+        margin: 5px 10px;
+        display: inline-block;
+    }
+}
+
 </style>
